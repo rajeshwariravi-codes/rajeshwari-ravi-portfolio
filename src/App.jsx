@@ -9,7 +9,7 @@ import Projects from "./sections/Projects";
 import Development from "./sections/Development";
 import Education from "./sections/Education";
 import Recognition from "./sections/Recognition";
-import Contact from "./sections/contact";
+import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 
 import "./App.css";
