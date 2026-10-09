@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Skills.css";
 
 import xamppLogo from "../assets/images/xampp.png";
-import chatgptLogo from "../assets/images/chatgpt.png";
+import chatgptLogo from "../assets/images/ChatGPT.png";
 import gammaLogo from "../assets/images/Gamma.png";
 
 function Skills() {
