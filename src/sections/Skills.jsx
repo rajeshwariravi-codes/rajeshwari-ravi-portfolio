@@ -2,8 +2,8 @@ import { useState } from "react";
 import "./Skills.css";
 
 import xamppLogo from "../assets/images/xampp.png";
-import chatgptLogo from "../assets/images/chatGPT.png";
-import gammaLogo from "../assets/images/gamma.png";
+import chatgptLogo from "../assets/images/chatgpt.png";
+import gammaLogo from "../assets/images/Gamma.png";
 
 function Skills() {
   const [activeCategory, setActiveCategory] = useState(null);
