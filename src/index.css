@@ -1,0 +1,224 @@
+/* ==================================================
+   GOOGLE FONTS
+================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@200..800&family=Text+Me+One&display=swap");
+
+
+/* ==================================================
+   DESIGN SYSTEM
+================================================== */
+
+:root {
+
+    /* ---------- COLORS ---------- */
+
+    --bg-main: #130421;
+    --text-primary: #EEDFFB;
+    --surface: #241032;
+    --accent: #B86BFF;
+
+
+    /* ---------- TEXT COLORS ---------- */
+
+    --text-secondary: rgba(238, 223, 251, 0.72);
+    --text-muted: rgba(238, 223, 251, 0.55);
+
+
+    /* ---------- BORDERS ---------- */
+
+    --border-soft: rgba(238, 223, 251, 0.08);
+    --border-accent: rgba(184, 107, 255, 0.35);
+
+
+    /* ---------- GLOW ---------- */
+
+    --accent-glow: rgba(184, 107, 255, 0.18);
+    --accent-glow-strong: rgba(184, 107, 255, 0.3);
+
+
+    /* ---------- TYPOGRAPHY ---------- */
+
+    --font-display: "Stick No Bills", sans-serif;
+    --font-body: "Text Me One", sans-serif;
+
+
+    /* ---------- LAYOUT ---------- */
+
+    --container-width: 1250px;
+    --container-padding: 7%;
+
+
+    /* ---------- RADIUS ---------- */
+
+    --radius-small: 10px;
+    --radius-medium: 18px;
+    --radius-large: 28px;
+    --radius-pill: 50px;
+
+
+    /* ---------- TRANSITIONS ---------- */
+
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-smooth: 0.5s ease;
+}
+
+
+/* ==================================================
+   RESET
+================================================== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==================================================
+   HTML
+================================================== */
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+
+/* ==================================================
+   BODY
+================================================== */
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(184, 107, 255, 0.045),
+            transparent 30%
+        ),
+        var(--bg-main);
+
+    color: var(--text-primary);
+
+    font-family: var(--font-body);
+
+    overflow-x: hidden;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ==================================================
+   ROOT
+================================================== */
+
+#root {
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+/* ==================================================
+   LINKS
+================================================== */
+
+a {
+    color: inherit;
+}
+
+
+/* ==================================================
+   BUTTONS
+================================================== */
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+
+/* ==================================================
+   IMAGES
+================================================== */
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* ==================================================
+   TEXT SELECTION
+================================================== */
+
+::selection {
+    background: var(--accent);
+    color: var(--bg-main);
+}
+
+
+/* ==================================================
+   SCROLLBAR
+================================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(184, 107, 255, 0.35);
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+
+/* ==================================================
+   COMMON UTILITY
+================================================== */
+
+.display-font {
+    font-family: var(--font-display);
+}
+
+.body-font {
+    font-family: var(--font-body);
+}
+
+
+/* ==================================================
+   RESPONSIVE ROOT SETTINGS
+================================================== */
+
+@media (max-width: 768px) {
+
+    :root {
+        --container-padding: 6%;
+    }
+}
+
+
+/* ==================================================
+   REDUCED MOTION
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+}
