@@ -55,7 +55,7 @@ const records = [
     organization: "Intra-Collegiate Paper Presentation",
     icon: <FaMicrophoneAlt />,
     description:
-      "1st Place in the Intra-Collegiate Paper Presentation on “ChatGPT and AI Tools”, demonstrating research and technical communication skills.",
+      "1st Place in the Intra-Collegiate Paper Presentation on “ ChatGPT and AI Tools” , demonstrating research and technical communication skills.",
     contributions: [],
     skills: ["Research", "AI Tools", "Technical Communication"],
   },
@@ -67,7 +67,7 @@ const records = [
     organization: "Technical Paper Presentation",
     icon: <FaBrain />,
     description:
-      "Presented a technical paper on “Edge Computing”, showcasing knowledge of distributed computing and cloud-edge technologies.",
+      "Presented a technical paper on “ Edge Computing” , showcasing knowledge of distributed computing and cloud-edge technologies.",
     contributions: [],
     skills: ["Edge Computing", "Distributed Computing", "Cloud-Edge Technologies"],
   },
