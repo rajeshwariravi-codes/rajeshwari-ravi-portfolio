@@ -1,15 +1,15 @@
 import { useState } from "react";
 import "./Contact.css";
+
 import {
     FaGithub,
     FaPhoneAlt,
     FaLinkedinIn,
     FaEnvelope,
-    FaMapMarkerAlt 
+    FaMapMarkerAlt,
 } from "react-icons/fa";
 
 function Contact() {
-
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [status, setStatus] = useState({
@@ -17,40 +17,44 @@ function Contact() {
         message: "",
     });
 
+    // Handle contact form submission using Web3Forms
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const form = event.currentTarget;
-
         const formData = new FormData(form);
 
-        const name = formData.get("name");
-        const email = formData.get("email");
-        const message = formData.get("message");
+        // Email notification settings
+        formData.set("from_name", "Rajeshwari Ravi | Portfolio");
+        formData.set(
+            "subject",
+            "New Contact Message from Portfolio"
+        );
+
+        // Replace this placeholder with your current Web3Forms access key.
+        formData.append(
+          "access_key",
+          import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
+        );
 
         setIsSubmitting(true);
-
         setStatus({
             type: "",
             message: "",
         });
 
         try {
-            const response = await fetch("https://rajeshwari-ravi-portfolio-backend.onrender.com/api/contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    message,
-                }),
-            });
+            const response = await fetch(
+                "https://api.web3forms.com/submit",
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            );
 
             const data = await response.json();
 
-            if (!response.ok) {
+            if (!response.ok || !data.success) {
                 throw new Error(
                     data.message || "Failed to send your message."
                 );
@@ -58,278 +62,265 @@ function Contact() {
 
             setStatus({
                 type: "success",
-                message: "Your message was sent successfully.",
+                message: "Your message was sent successfully!",
             });
 
             form.reset();
-
         } catch (error) {
-
             console.error("Contact form error:", error);
 
             setStatus({
                 type: "error",
-                message: "Unable to send your message. Please try again.",
+                message:
+                    "Unable to send your message. Please try again.",
             });
-
         } finally {
-
             setIsSubmitting(false);
-
         }
     };
 
-  return (
-    <section className="contact-section" id="contact">
-      <div className="contact-container">
+    return (
+        <section className="contact-section" id="contact">
+            <div className="contact-container">
 
-        {/* =========================================
-            SECTION HEADER
-        ========================================= */}
-
-        <div className="contact-heading">
-
-          <span className="contact-section-number">
-            08
-          </span>
-
-          <div className="contact-section-label">
-            <span></span>
-            CONTACT
-          </div>
-
-        </div>
-
-
-        {/* =========================================
-            CONTACT CONTENT
-        ========================================= */}
-
-        <div className="contact-content">
-
-          {/* LEFT — CONTACT INFO */}
-
-          <div className="contact-info">
-
-            <div className="contact-info-intro">
-              <span className="contact-mini-label">
-                GET IN TOUCH
-              </span>
-
-              <h3>
-                Let's start a
-                <br />
-                <span>conversation.</span>
-              </h3>
-
-              <p>
-              Have a project, opportunity, or idea in mind? Let’s connect, share ideas, and build something meaningful together.
-              </p>
-            </div>
-
-
-            {/* CONTACT DETAILS */}
-
-            <div className="contact-details">
-
-              {/* EMAIL */}
-
-              <a
-                href="mailto:rajiravi72351@gmail.com"
-                className="contact-detail"
-              >
-                <div className="contact-detail-icon">
-                  <FaEnvelope />
-                </div>
-
-                <div className="contact-detail-text">
-                  <span>Email</span>
-                  <strong>
-                    rajiravi72351@gmail.com
-                  </strong>
-                </div>
-
-                <span className="contact-detail-arrow">
-                  ↗
-                </span>
-              </a>
-
-
-              {/* PHONE */}
-              <a
-              href="tel:+919566872225"
-              className="contact-detail"
-              >
-
-                <div className="contact-detail-icon">
-                  <FaPhoneAlt />
-                </div>
-
-                <div className="contact-detail-text">
-                  <span>Phone</span>
-                  <strong>Let's connect</strong>
-                </div>
-
-                <span className="contact-detail-arrow">
-                  ↗
-                </span>
-              </a>
-
-
-              {/* LINKEDIN */}
-
-              <a
-                href="https://www.linkedin.com/in/rajeshwariravi16"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-detail"
-              >
-                <div className="contact-detail-icon">
-                  <FaLinkedinIn />
-                </div>
-
-                <div className="contact-detail-text">
-                  <span>LinkedIn</span>
-                  <strong>
-                    Connect with me
-                  </strong>
-                </div>
-
-                <span className="contact-detail-arrow">
-                  ↗
-                </span>
-              </a>
-
-
-              {/* GITHUB */}
-
-              <a
-                href="https://github.com/rajeshwariravi-codes"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-detail"
-              >
-                <div className="contact-detail-icon">
-                  <FaGithub />
-                </div>
-
-                <div className="contact-detail-text">
-                  <span>GitHub</span>
-                  <strong>
-                    View my repositories
-                  </strong>
-                </div>
-
-                <span className="contact-detail-arrow">
-                  ↗
-                </span>
-              </a>
-
-
-              {/* LOCATION */}
-
-              <div className="contact-detail contact-location">
-
-                <div className="contact-detail-icon">
-                  <FaMapMarkerAlt  />
-                </div>
-
-                <div className="contact-detail-text">
-                  <span>Location</span>
-                  <strong>
-                    Surampatti Valasu, Erode District, Tamil Nadu, India
-                  </strong>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          {/* RIGHT — CONTACT FORM */}
-
-          <div className="contact-form-wrapper">
-
-            <div className="form-top">
-              <span>01</span>
-              <p>SEND A MESSAGE</p>
-            </div>
-
-
-            <form className="contact-form" onSubmit={handleSubmit}>
-
-              {/* NAME */}
-
-              <div className="form-field">
-                <label htmlFor="name"> NAME </label>
-                <input id="name" type="text" name="name" placeholder="Your name" />
-              </div>
-
-              {/* EMAIL */}
-
-              <div className="form-field">
-                <label htmlFor="email"> EMAIL </label>
-                <input id="email" type="email" name="email" placeholder="your@email.com" />
-              </div>
-
-              {/* MESSAGE */}
-
-              <div className="form-field">
-                <label htmlFor="message"> MESSAGE </label>
-                <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." ></textarea>
-              </div>
-
-
-              {/* BUTTON */}
-
-                <button
-                    type="submit"
-                    className="contact-submit"
-                    disabled={isSubmitting}
-                >
-                    <span>
-                        {isSubmitting ? "Sending..." : "Send Message"}
+                {/* SECTION HEADER */}
+                <div className="contact-heading">
+                    <span className="contact-section-number">
+                        08
                     </span>
 
-                    <span className="submit-arrow">
-                        {isSubmitting ? "..." : "↗"}
-                    </span>
-                </button>
+                    <div className="contact-section-label">
+                        <span></span>
+                        CONTACT
+                    </div>
+                </div>
 
-            </form>
+                {/* CONTACT CONTENT */}
+                <div className="contact-content">
 
-            {status.message && (
-                <p className={`form-status ${status.type}`}>
-                    {status.message}
-                </p>
-            )}
+                    {/* LEFT — CONTACT INFO */}
+                    <div className="contact-info">
 
-          </div>
+                        <div className="contact-info-intro">
+                            <span className="contact-mini-label">
+                                GET IN TOUCH
+                            </span>
 
-        </div>
+                            <h3>
+                                Let's start a
+                                <br />
+                                <span>conversation.</span>
+                            </h3>
 
+                            <p>
+                                Have a project, opportunity, or idea
+                                in mind? Let’s connect, share ideas,
+                                and build something meaningful together.
+                            </p>
+                        </div>
 
-        {/* =========================================
-            BOTTOM
-        ========================================= */}
+                        {/* CONTACT DETAILS */}
+                        <div className="contact-details">
 
-        <div className="contact-bottom">
+                            {/* EMAIL */}
+                            <a
+                                href="mailto:rajiravi72351@gmail.com"
+                                className="contact-detail"
+                            >
+                                <div className="contact-detail-icon">
+                                    <FaEnvelope />
+                                </div>
 
-          <span></span>
+                                <div className="contact-detail-text">
+                                    <span>Email</span>
+                                    <strong>
+                                        rajiravi72351@gmail.com
+                                    </strong>
+                                </div>
 
-          <p>
-            THINK • BUILD • CONNECT
-          </p>
+                                <span className="contact-detail-arrow">
+                                    ↗
+                                </span>
+                            </a>
 
-          <span></span>
+                            {/* PHONE */}
+                            <a
+                                href="tel:+919566872225"
+                                className="contact-detail"
+                            >
+                                <div className="contact-detail-icon">
+                                    <FaPhoneAlt />
+                                </div>
 
-        </div>
+                                <div className="contact-detail-text">
+                                    <span>Phone</span>
+                                    <strong>Let's connect</strong>
+                                </div>
 
-      </div>
-    </section>
-  );
+                                <span className="contact-detail-arrow">
+                                    ↗
+                                </span>
+                            </a>
+
+                            {/* LINKEDIN */}
+                            <a
+                                href="https://www.linkedin.com/in/rajeshwariravi16"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="contact-detail"
+                            >
+                                <div className="contact-detail-icon">
+                                    <FaLinkedinIn />
+                                </div>
+
+                                <div className="contact-detail-text">
+                                    <span>LinkedIn</span>
+                                    <strong>Connect with me</strong>
+                                </div>
+
+                                <span className="contact-detail-arrow">
+                                    ↗
+                                </span>
+                            </a>
+
+                            {/* GITHUB */}
+                            <a
+                                href="https://github.com/rajeshwari-ravi-codes"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="contact-detail"
+                            >
+                                <div className="contact-detail-icon">
+                                    <FaGithub />
+                                </div>
+
+                                <div className="contact-detail-text">
+                                    <span>GitHub</span>
+                                    <strong>View my repositories</strong>
+                                </div>
+
+                                <span className="contact-detail-arrow">
+                                    ↗
+                                </span>
+                            </a>
+
+                            {/* LOCATION */}
+                            <div className="contact-detail contact-location">
+                                <div className="contact-detail-icon">
+                                    <FaMapMarkerAlt />
+                                </div>
+
+                                <div className="contact-detail-text">
+                                    <span>Location</span>
+                                    <strong>
+                                        Surampatti Valasu, Erode District,
+                                        Tamil Nadu, India
+                                    </strong>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {/* RIGHT — CONTACT FORM */}
+                    <div className="contact-form-wrapper">
+
+                        <div className="form-top">
+                            <span>01</span>
+                            <p>SEND A MESSAGE</p>
+                        </div>
+
+                        <form
+                            className="contact-form"
+                            onSubmit={handleSubmit}
+                        >
+
+                            {/* NAME */}
+                            <div className="form-field">
+                                <label htmlFor="name">NAME</label>
+
+                                <input
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    placeholder="Your name"
+                                    autoComplete="name"
+                                    required
+                                />
+                            </div>
+
+                            {/* EMAIL */}
+                            <div className="form-field">
+                                <label htmlFor="email">EMAIL</label>
+
+                                <input
+                                    id="email"
+                                    type="email"
+                                    name="email"
+                                    placeholder="your@email.com"
+                                    autoComplete="email"
+                                    required
+                                />
+                            </div>
+
+                            {/* MESSAGE */}
+                            <div className="form-field">
+                                <label htmlFor="message">MESSAGE</label>
+
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    rows="5"
+                                    placeholder="Tell me about your project..."
+                                    required
+                                />
+                            </div>
+
+                            {/* SUBMIT BUTTON */}
+                            <button
+                                type="submit"
+                                className="contact-submit"
+                                disabled={isSubmitting}
+                            >
+                                <span>
+                                    {isSubmitting
+                                        ? "Sending..."
+                                        : "Send Message"}
+                                </span>
+
+                                <span className="submit-arrow">
+                                    {isSubmitting ? "..." : "↗"}
+                                </span>
+                            </button>
+
+                        </form>
+
+                        {/* SUCCESS / ERROR MESSAGE */}
+                        {status.message && (
+                            <p
+                                className={`form-status ${status.type}`}
+                                role="status"
+                                aria-live="polite"
+                            >
+                                {status.message}
+                            </p>
+                        )}
+
+                    </div>
+                </div>
+
+                {/* BOTTOM */}
+                <div className="contact-bottom">
+                    <span></span>
+
+                    <p>THINK • BUILD • CONNECT</p>
+
+                    <span></span>
+                </div>
+
+            </div>
+        </section>
+    );
 }
 
 export default Contact;
